@@ -23,6 +23,7 @@ const bindClickHandlers = () => {
 
     $(document).on('click', ".show_link", function(e) {
         e.preventDefault()
+        
         //alert('i was clicked')
         let id = $(this).attr('data-id')
         //console.log(id)
@@ -39,17 +40,18 @@ const bindClickHandlers = () => {
 }
 
 
-
-function Job(job) {
-    this.id = job.id
-    this.title = job.title
-    this.salary = job.salary
-    this.description = job.description
-    this.category = job.category
-    this.company_name = job.company_name
-    this.company_id = job.company_id 
-    this.location = job.location
-    this.created_at = job.created_at
+class Job {
+    constructor(job) {
+      this.id = job.id
+      this.title = job.title
+      this.salary = job.salary        
+      this.description = job.description
+      this.category = job.category
+      this.company_name = job.company_name
+      this.company_id = job.company_id 
+      this.location = job.location
+      this.created_at = new Date(job.created_at).toDateString()
+    }
 }
 
 Job.prototype.formatIndex = function() {
