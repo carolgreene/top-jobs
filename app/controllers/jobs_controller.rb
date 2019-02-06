@@ -28,6 +28,11 @@ class JobsController < ApplicationController
     end
   end
 
+  def next 
+    @next_job = @job.next
+    render json: @next_job
+  end 
+
   def show 
     respond_to do |f|
       f.html

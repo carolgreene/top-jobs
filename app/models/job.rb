@@ -7,5 +7,18 @@ class Job < ApplicationRecord
     accepts_nested_attributes_for :job_applications
     
     scope :most_recent_first, -> { reorder(created_at: :desc)} 
+
+    def next 
+      job = Job.where("id < ?", id).last 
+      if job 
+        job 
+      else 
+        Job.last
+      end
+      
+    end
+
+    
+
     
 end

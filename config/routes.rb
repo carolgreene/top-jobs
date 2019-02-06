@@ -23,5 +23,7 @@ Rails.application.routes.draw do
 
   get '/signout' => 'sessions#destroy'
 
+  get 'jobs/:id/next', to: 'jobs#next'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
