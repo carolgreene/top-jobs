@@ -47,6 +47,24 @@ const bindClickHandlers = () => {
         $(`#app-container`).html('').append(newJobForm)
     })
 
+    $(document).on('click', '#next-job', function() {
+        //console.log(this)
+        //alert("i was clicked")
+        let id = $(this).attr('data-id')
+        console.log(id)
+        test = fetch(`jobs/${id}/next.json`)
+        console.log(test)
+        //.then(res => res.json())
+        //console.log(res)
+        //.then(job => {
+        //    let newJob = new Job(job)
+        //    let jobHTML = newJob.formatShow()
+        //    $(`#app-container`).append(jobHtml)
+        //})
+    })
+
+    
+
     
     
 }
@@ -67,15 +85,26 @@ class Job {
 
     static newJobForm() {
         return (`
-        <strong>Post a New Job</strong>
-        <form>
-        <input id='job-title' type='text' name='title'</input><br>
+        <h3><strong>Post a New Job</strong></h3>
+        <br>
+        <br>
+        <form id="job-form" onsubmit="createJob(); return false;">
+        Title<br>
+        <input id='title' type='text' name='title'</input><br>
+        Location<br>
         <input type='text' name='location'</input><br>
+        Category<br>
         <input type='text' name='category'</input><br>
+        Company Name<br>
         <input type='text' name='company name'</input><br>
+        Salary<br>
         <input type='text' name='salary'</input><br>
+        Description<br>
         <input type='text' name='description'</input><br>
-        <input type='submit' />
+        <br>
+        <!--<input type='hidden' :company_id, :value => @user.id unless @job.company_id </input>-->
+        <input type='submit' id='submit new job' />
+        
         </form>
         `)
         
