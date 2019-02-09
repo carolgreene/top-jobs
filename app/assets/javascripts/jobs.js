@@ -47,25 +47,10 @@ const bindClickHandlers = () => {
         $(`#app-container`).html('').append(newJobForm)
     })
 
-    $(document).on('click', '#next-job', function() {
-        //console.log(this)
-        //alert("i was clicked")
-        let id = $(this).attr('data-id')
-        console.log(id)
-        test = fetch(`jobs/${id}/next.json`)
-        console.log(test)
-        //.then(res => res.json())
-        //console.log(res)
-        //.then(job => {
-        //    let newJob = new Job(job)
-        //    let jobHTML = newJob.formatShow()
-        //    $(`#app-container`).append(jobHtml)
-        //})
-    })
-
-    
-
-    
+    $(document).on('click', '#submit-new-job', function(e) {
+        e.preventDefault()
+        alert('I was clicked')
+    })    
     
 }
 
@@ -88,7 +73,7 @@ class Job {
         <h3><strong>Post a New Job</strong></h3>
         <br>
         <br>
-        <form id="job-form" onsubmit="createJob(); return false;">
+        <form id="job-form">
         Title<br>
         <input id='title' type='text' name='title'</input><br>
         Location<br>
@@ -103,7 +88,7 @@ class Job {
         <input type='text' name='description'</input><br>
         <br>
         <!--<input type='hidden' :company_id, :value => @user.id unless @job.company_id </input>-->
-        <input type='submit' id='submit new job' />
+        <input type='submit' id='submit-new-job' />
         
         </form>
         `)
@@ -130,3 +115,20 @@ Job.prototype.formatShow = function() {
     <button class="next", data-id="${this.id}" id="next-job">Next Job</button`
     return jobHtml
 }
+
+
+//$(document).on('click', '#next-job', function() {
+    //console.log(this)
+    //alert("i was clicked")
+    //let id = $(this).attr('data-id')
+    //console.log(id)
+    //test = fetch(`jobs/${id}/next.json`)
+    //console.log(test)
+    //.then(res => res.json())
+    //console.log(res)
+    //.then(job => {
+    //    let newJob = new Job(job)
+    //    let jobHTML = newJob.formatShow()
+    //    $(`#app-container`).append(jobHtml)
+    //})
+//})
