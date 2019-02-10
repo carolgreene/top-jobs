@@ -54,10 +54,7 @@ const bindClickHandlers = () => {
         
     })
 
-
-
-
-    //doesn't work, coming out in html, not json
+    
     $(document).on('submit', "form#new_job.new_job", function(e) {
         e.preventDefault()         
         
