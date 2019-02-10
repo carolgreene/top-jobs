@@ -16,7 +16,7 @@ const bindClickHandlers = () => {
             let newJob = new Job(job)
             let jobHtml = newJob.formatIndex()
             $(`#app-container`).append(jobHtml)
-            console.log(newJob)
+            //console.log(newJob)
         })
      })        
     })
@@ -29,7 +29,7 @@ const bindClickHandlers = () => {
         let id = $(this).attr('data-id')
         console.log(this)
         fetch(`/jobs/${id}.json`)
-        .then(res => res.json())
+        .then((res) => res.json())
         .then(job => {
             let newJob = new Job(job)
             let jobHtml = newJob.formatShow()                  
@@ -38,18 +38,47 @@ const bindClickHandlers = () => {
     
         })
     })
-
-
    
     $('button#new-job-form').on('click', function(e) {
         e.preventDefault() 
-        let newJobForm = Job.newJobForm()
-        $(`#app-container`).html('').append(newJobForm)
+        //let newJobForm = Job.newJobForm()
+        //debugger
+        $.ajax({
+            url: 'http://192.168.1.6:3000/jobs/new',
+            method: 'GET',
+            dataType: 'html',
+
+        }).success(function (response) {
+          $(`#app-container`).html('').append(response)
+        })
+        
     })
 
-    $(document).on('click', '#submit-new-job', function(e) {
-        e.preventDefault()
-        alert('I was clicked')
+
+
+
+    //doesn't work, coming out in html, not json
+    $(document).on('submit', "form#new_job.new_job", function(e) {
+        e.preventDefault()         
+        
+        //alert('I was clicked')
+        $(`#app-container`).html('').append('great new job goes here')
+        $.ajax({
+            
+            type: "POST",      //($("input[name='_method']").val() || this.method),            
+            url: this.action,
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response)            
+           {
+                console.log(response)
+                let newJob = new Job(response)
+                let jobHtml = newJob.formatShow()    
+                
+                $(`#app-container`).html('').append(jobHtml)
+            }
+        })
+    
     })    
     
 }
@@ -68,32 +97,32 @@ class Job {
       this.created_at = new Date(job.created_at).toDateString()
     }
 
-    static newJobForm() {
-        return (`
-        <h3><strong>Post a New Job</strong></h3>
-        <br>
-        <br>
-        <form id="job-form">
-        Title<br>
-        <input id='title' type='text' name='title'</input><br>
-        Location<br>
-        <input type='text' name='location'</input><br>
-        Category<br>
-        <input type='text' name='category'</input><br>
-        Company Name<br>
-        <input type='text' name='company name'</input><br>
-        Salary<br>
-        <input type='text' name='salary'</input><br>
-        Description<br>
-        <input type='text' name='description'</input><br>
-        <br>
-        <!--<input type='hidden' :company_id, :value => @user.id unless @job.company_id </input>-->
-        <input type='submit' id='submit-new-job' />
+    //static newJobForm() {
+       // return (`
+       // <h3><strong>Post a New Job</strong></h3>
+       // <br>
+       // <br>
+      //  <form id="job-form" method="post" action= "/jobs">
+       // Title<br>
+       // <input id='title' type='text' name='title'</input><br>
+       // Location<br>
+      //  <input type='text' name='location'</input><br>
+      //  Category<br>
+      //  <input type='text' name='category'</input><br>
+      //  Company Name<br>
+     //   <input type='text' name='company name'</input><br>
+      //  Salary<br>
+      //  <input type='text' name='salary'</input><br>
+     //   Description<br>
+     //   <input type='text' name='description'</input><br>
+      //  <br>
+      //  <!--<input type='hidden' :company_id, :value => @user.id unless @job.company_id </input>-->
+     //   <input type='submit' id='submit-new-job' />
         
-        </form>
-        `)
+       // </form>
+       // `)
         
-    }
+    //}
 }
 
 Job.prototype.formatIndex = function() {
@@ -115,6 +144,8 @@ Job.prototype.formatShow = function() {
     <button class="next", data-id="${this.id}" id="next-job">Next Job</button`
     return jobHtml
 }
+
+
 
 
 //$(document).on('click', '#next-job', function() {

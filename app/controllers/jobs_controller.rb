@@ -6,6 +6,8 @@ class JobsController < ApplicationController
   def new 
     @job = Job.new 
     authorize @job
+    render layout: false
+    #render :name of form, layout: false
   end
 
   def index 
@@ -21,8 +23,11 @@ class JobsController < ApplicationController
 
   def create        
     @job = Job.create(job_params)       
-    if @job.save      
-      redirect_to job_path(@job), alert: "Job successfully created!"
+    if @job.save  
+      respond_to do |f|    
+        f.html {redirect_to job_path(@job), alert: "Job successfully created!"}
+        f.json {render json: @job, layout: false}
+      end
     else         
       render :new     #needs a double click on create job to make this work
     end
