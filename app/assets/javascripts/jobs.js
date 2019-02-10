@@ -62,7 +62,7 @@ const bindClickHandlers = () => {
         $(`#app-container`).html('').append('great new job goes here')
         $.ajax({
             
-            type: "POST",      //($("input[name='_method']").val() || this.method),            
+            type: ($("input[name='_method']").val() || this.method),            
             url: this.action,
             data: $(this).serialize(),
             dataType: 'json',
@@ -77,6 +77,23 @@ const bindClickHandlers = () => {
         })
     
     })    
+
+
+$(document).on('click', '#next-job', function() {
+    //console.log(this)
+    //alert("i was clicked")
+    let id = $(this).attr('data-id')
+    console.log(id)
+    //test = fetch(`jobs/${id}/next.json`)
+    //console.log(test)
+    //.then(res => res.json())
+    //console.log(res)
+    //.then(job => {
+    //    let newJob = new Job(job)
+    //    let jobHTML = newJob.formatShow()
+    //    $(`#app-container`).append(jobHtml)
+    //})
+})
     
 }
 
@@ -145,18 +162,3 @@ Job.prototype.formatShow = function() {
 
 
 
-//$(document).on('click', '#next-job', function() {
-    //console.log(this)
-    //alert("i was clicked")
-    //let id = $(this).attr('data-id')
-    //console.log(id)
-    //test = fetch(`jobs/${id}/next.json`)
-    //console.log(test)
-    //.then(res => res.json())
-    //console.log(res)
-    //.then(job => {
-    //    let newJob = new Job(job)
-    //    let jobHTML = newJob.formatShow()
-    //    $(`#app-container`).append(jobHtml)
-    //})
-//})
