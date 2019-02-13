@@ -21,6 +21,26 @@ const bindClickHandlers = () => {
      })        
     })
 
+    
+    $('.sign_in').on('click', (e) => {
+        e.preventDefault() 
+        //alert("I was clicked!")
+        $.ajax({
+            url: 'http://192.168.1.6:3000/signin',
+            method: 'GET',
+            dataType: 'html',
+
+        }).success(function (response) {
+          $(`#app-container`).html('').append(response)
+        })
+        
+    })
+
+
+
+        
+
+
     $(document).on('click', ".show_link", function(e) {
         e.preventDefault()
         $(`#app-container`).html('')
