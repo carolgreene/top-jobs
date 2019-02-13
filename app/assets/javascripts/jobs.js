@@ -5,7 +5,7 @@ $(document).ready(function() {
 const bindClickHandlers = () => {     
  $('.all_jobs').on('click', (e) => {
      e.preventDefault()
-     history.pushState(null, null, "jobs")
+     //history.pushState(null, null, "jobs")
      //alert('i was clicked')
      fetch(`/jobs.json`)
      .then((res) => res.json())
@@ -34,6 +34,19 @@ const bindClickHandlers = () => {
           $(`#app-container`).html('').append(response)
         })
         
+    })
+
+    $('.sign_up').on('click', (e) => {
+        e.preventDefault()
+        //alert("you clicked me!")
+        $.ajax({
+            url: 'http://192.168.1.6:3000/users/new',
+            method: 'GET',
+            dataType: 'html',
+
+        }).success(function (response) {
+            $(`#app-container`).html('').append(response)
+        })
     })
 
 
