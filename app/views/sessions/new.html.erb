@@ -3,7 +3,7 @@
 
 
 
-<%= form_for :user, url: signin_path do |f| %>
+<%= form_for(:user, url: signin_path, :html => {:id => "signin_form"}) do |f| %>
     
 
     <%= f.label :name %><br>

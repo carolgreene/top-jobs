@@ -28,6 +28,13 @@ $('.sign_up').on('click', (e) => {
     }).success(function (response) {
         $(`#app-container`).html('').append(response)
     })
-})
+  })
+
+
+  $(document).on('submit', "form#signin_form", function(e) {
+    e.preventDefault()         
+    
+    alert('I was clicked')
+  })
 }
 
