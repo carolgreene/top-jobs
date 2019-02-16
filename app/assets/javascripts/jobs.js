@@ -22,34 +22,7 @@ const bindClickHandlers = () => {
     })
 
     
-    $('.sign_in').on('click', (e) => {
-        e.preventDefault() 
-        //alert("I was clicked!")
-        $.ajax({
-            url: 'http://192.168.1.6:3000/signin',
-            method: 'GET',
-            dataType: 'html',
-
-        }).success(function (response) {
-          $(`#app-container`).html('').append(response)
-        })
-        
-    })
-
-    $('.sign_up').on('click', (e) => {
-        e.preventDefault()
-        //alert("you clicked me!")
-        $.ajax({
-            url: 'http://192.168.1.6:3000/users/new',
-            method: 'GET',
-            dataType: 'html',
-
-        }).success(function (response) {
-            $(`#app-container`).html('').append(response)
-        })
-    })
-
-
+   
 
         
 
@@ -174,10 +147,10 @@ class Job {
 
 Job.prototype.formatIndex = function() {
     let jobHtml = `
-    <a href="/jobs/${this.id}" data-id="${this.id}" class="show_link"><h3>${this.title}</h3></a> |
+    <a href="/jobs/${this.id}" data-id="${this.id}" class="show_link"><h3>${this.title}</a> |
     ${this.company_name} |
     ${this.location} |
-    Date Posted:${this.created_at}`        
+    Date Posted:${this.created_at}</li>`        
     return jobHtml
 }
 
