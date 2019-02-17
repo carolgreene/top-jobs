@@ -59,6 +59,24 @@ const bindEventListeners = () => {
         }
     })
   })
+
+    $(document).on('submit', "form#new_user.new_user", function(e) {
+        e.preventDefault()
+        //alert('you clicked me!')
+        $.ajax({
+            type: ($("input[name='_method']").val() || this.method),
+            url: this.action,
+            data: $(this).serialize(),
+            dataType: 'json', 
+            success: function(response)
+            {
+               console.log(response) 
+               let newUser = new User(response)
+               let userHtml = newUser.formatShow()
+               $(`#app-container`).html('').append(userHtml)
+            }
+        })
+    })
 }
 
 class User {
@@ -66,7 +84,8 @@ class User {
         this.id = user.id 
         this.name = user.name 
         this.role = user.role  
-        this.jobs = user.jobs           
+        this.jobs = user.jobs 
+                 
     }
 }
 

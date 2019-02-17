@@ -11,9 +11,14 @@ class UsersController < ApplicationController
   
   def create 
     @user = User.new(user_params)
+    #binding.pry
     if @user.save
       session[:user_id] = @user.id 
-      redirect_to user_path(@user)
+      respond_to do |f|
+        f.html {redirect_to user_path(@user)}
+        f.json {render json: @user}
+      end
+      
     else
       render :new
     end
