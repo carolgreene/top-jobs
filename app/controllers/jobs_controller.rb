@@ -46,7 +46,8 @@ class JobsController < ApplicationController
   end
 
   def edit     
-    authorize @job    
+    authorize @job 
+    render layout: false   
   end
 
   def update     

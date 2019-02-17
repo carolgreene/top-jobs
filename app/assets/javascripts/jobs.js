@@ -82,7 +82,21 @@ const bindClickHandlers = () => {
             }
         })
     
-    })    
+    })   
+    
+    $(document).on('click', 'button#edit-job.edit_job', function(e) {
+        e.preventDefault()
+        //alert('you clicked me')
+        let id = $(this).attr('data-id')
+        $.ajax({
+            url: `http://192.168.1.6:3000/jobs/${id}/edit`,
+            method: 'GET',
+            dataType: 'html',
+
+                }).success(function (response) {
+                    $(`#app-container`).html('').append(response)
+                })
+    })
 
 
 $(document).on('click', '#next-job', function() {
@@ -150,7 +164,8 @@ Job.prototype.formatIndex = function() {
     <a href="/jobs/${this.id}" data-id="${this.id}" class="show_link"><h3>${this.title}</a> |
     ${this.company_name} |
     ${this.location} |
-    Date Posted:${this.created_at}</li>`        
+    Date Posted:${this.created_at}</li>
+    `        
     return jobHtml
 }
 
@@ -161,10 +176,11 @@ Job.prototype.formatShow = function() {
     ${this.location} |
     ${this.description} |
     ${this.salary}K </p>
-    <button class="next", data-id="${this.id}" id="next-job">Next Job</button`
+    <button class="next", data-id="${this.id}" id="next-job">Next Job</button>
+    <button class="edit_job", data-id="${this.id}" id="edit-job">Edit Job</button>
+    `
     return jobHtml
 }
-
 
 
 
