@@ -13,9 +13,9 @@ const bindEventListeners = () => {
 
     }).success(function (response) {
       $(`#app-container`).html('').append(response)
-    })
-    
+    })    
   })
+
 
   $('.sign_up').on('click', (e) => {
     e.preventDefault()
@@ -41,10 +41,20 @@ const bindEventListeners = () => {
         dataType: 'json',
         success: function(response)
         {
-            console.log(response)
+           
+            //console.log(response.jobs)
+            
             let newUser = new User(response)               
             let userHtml = newUser.formatShow()
-            $(`#app-container`).html('').append(userHtml)        
+            $(`#app-container`).html('').append(userHtml)   
+
+            //Not sure how to iterate over user.jobs to get listing of their jobs***
+            
+            //response.jobs.forEach(function(posting) {
+             //   let newPosting = new Posting(posting)
+             //   let postingHtml = newPosting.formatJobPosted()
+             //   $(`#app-container`).html.append(postingHtml)
+            //})
                     
         }
     })
@@ -56,9 +66,10 @@ class User {
         this.id = user.id 
         this.name = user.name 
         this.role = user.role  
-        this.jobs = user.jobs            
+        this.jobs = user.jobs           
     }
 }
+
 
 User.prototype.formatShow = function() {
     
@@ -67,7 +78,21 @@ User.prototype.formatShow = function() {
     <h4>Type: ${this.role}</h4>
     <br>
     <h4>Jobs Posted</h4>  
-    ${this.jobs} 
+    ${this.jobs}
     `
     return userHtml
 }
+
+//code below doesn't work. Is part of attempt to get listing of user's jobs***
+//class Posting {
+ //   constructor(posting) {
+//        this.title = posting.title
+ //   }
+//}
+
+//Posting.prototype.formatJobPosted = function() {
+//    let postingHtml = `
+//    ${this.title}
+//    `
+ //   return postingHtml
+//}
