@@ -19,12 +19,7 @@ const bindClickHandlers = () => {
             //console.log(newJob)
         })
      })        
-    })
-
-    
-   
-
-        
+    })      
 
 
     $(document).on('click', ".show_link", function(e) {
@@ -63,11 +58,8 @@ const bindClickHandlers = () => {
     
     $(document).on('submit', "form#new_job.new_job", function(e) {
         e.preventDefault()         
-        
-        //alert('I was clicked')
-        $(`#app-container`).html('').append('great new job goes here')
-        $.ajax({
-            
+                   
+        $.ajax({            
             type: ($("input[name='_method']").val() || this.method),            
             url: this.action,
             data: $(this).serialize(),
@@ -86,17 +78,37 @@ const bindClickHandlers = () => {
     
     $(document).on('click', 'button#edit-job.edit_job', function(e) {
         e.preventDefault()
-        //alert('you clicked me')
         let id = $(this).attr('data-id')
+
         $.ajax({
             url: `http://192.168.1.6:3000/jobs/${id}/edit`,
             method: 'GET',
             dataType: 'html',
-
-                }).success(function (response) {
-                    $(`#app-container`).html('').append(response)
-                })
+            }).success(function (response) {
+               $(`#app-container`).html('').append(response)
+            })
     })
+
+    //had to hard code job id in 1st line of code below. Everything else works***
+    $(document).on('submit', `form#edit_job_44.edit_job`, function(e) {        
+        e.preventDefault()           
+        
+        $.ajax({            
+            type: ($("input[name='_method']").val() || this.method),            
+            url: this.action,
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(response)            
+           {
+                console.log(response)
+                let newJob = new Job(response)
+                let jobHtml = newJob.formatShow()    
+                
+                $(`#app-container`).html('').append(jobHtml)
+            }
+        })
+    
+    })   
 
 
 $(document).on('click', '#next-job', function() {
@@ -129,34 +141,7 @@ class Job {
       this.company_id = job.company_id 
       this.location = job.location
       this.created_at = new Date(job.created_at).toDateString()
-    }
-
-    //static newJobForm() {
-       // return (`
-       // <h3><strong>Post a New Job</strong></h3>
-       // <br>
-       // <br>
-      //  <form id="job-form" method="post" action= "/jobs">
-       // Title<br>
-       // <input id='title' type='text' name='title'</input><br>
-       // Location<br>
-      //  <input type='text' name='location'</input><br>
-      //  Category<br>
-      //  <input type='text' name='category'</input><br>
-      //  Company Name<br>
-     //   <input type='text' name='company name'</input><br>
-      //  Salary<br>
-      //  <input type='text' name='salary'</input><br>
-     //   Description<br>
-     //   <input type='text' name='description'</input><br>
-      //  <br>
-      //  <!--<input type='hidden' :company_id, :value => @user.id unless @job.company_id </input>-->
-     //   <input type='submit' id='submit-new-job' />
-        
-       // </form>
-       // `)
-        
-    //}
+    }    
 }
 
 Job.prototype.formatIndex = function() {

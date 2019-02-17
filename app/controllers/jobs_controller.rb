@@ -53,7 +53,10 @@ class JobsController < ApplicationController
   def update     
     authorize @job
     @job.update(job_params)
-    redirect_to job_path(@job), alert: "Job successfully updated!"
+    respond_to do |f|
+      f.html {redirect_to job_path(@job), alert: "Job successfully updated!"}
+      f.json {render json: @job}
+    end
   end 
 
   def destroy 
