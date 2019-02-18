@@ -42,7 +42,7 @@ const bindEventListeners = () => {
         success: function(response)
         {
            
-            //console.log(response.jobs)
+            console.log(response)
             
             let newUser = new User(response)               
             let userHtml = newUser.formatShow()
@@ -77,18 +77,29 @@ class User {
         this.name = user.name 
         this.role = user.role  
         this.jobs = user.jobs 
+        this.job_applications = user.job_applications
+        //this.applied_jobs = user.applied_jobs
+        //console.log(this.applied_jobs)
                  
     }
 }
 
 
-User.prototype.formatShow = function() {        
-    let userHtml = this.jobs.map(job => {
+User.prototype.formatShow = function() {  
+    //applicant not working. Can't access app.job.title****
+    let applicantHtml = this.job_applications.map(app => {
+        //console.log(this.applied_jobs)        
+        return (`
+        <li>${app.job_id}</li>
+        `)
+    }).join('')
+    
+    let companyHtml = this.jobs.map(job => {
         return (`
         <li><a href='/jobs/${this.id}' data-id="${this.id}" class="show_link">${job.title}</a> | ${job.location} | Date Posted: ${new Date(job.created_at).toDateString()}</li>
     `)
     }).join('')
-
+    if(this.role === 'company')
     return (` 
     <h3>Hi ${this.name}</h3>
     <h4>Type: ${this.role}</h4>
@@ -96,8 +107,18 @@ User.prototype.formatShow = function() {
     <br>
     <h4>Jobs Posted</h4>
     <br>
-    <ul>${userHtml}</ul>
+    <ul>${companyHtml}</ul>
     `) 
+    else 
+    return (`
+    <h3>Hi ${this.name}</h3>
+    <h4>Type: ${this.role}</h4>
+    <br>
+    <br>
+    <h4>Jobs Applied To</h4>
+    <br>
+    <ul>${applicantHtml}</ul> 
+    `)
 }
 
 

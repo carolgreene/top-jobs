@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :password, :role, :jobs
+  attributes :id, :name, :password, :role, :jobs, :applied_jobs
 
   has_many :jobs, :foreign_key => 'company_id', source: :company
 
