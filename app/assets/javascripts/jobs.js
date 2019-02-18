@@ -116,8 +116,8 @@ $(document).on('click', '#next-job', function() {
     //alert("i was clicked")
     let id = $(this).attr('data-id')
     console.log(id)
-    //test = fetch(`jobs/${id}/next.json`)
-    //console.log(test)
+    let test = fetch(`jobs/${id}/next.json`)
+    console.log(test)
     //.then(res => res.json())
     //console.log(res)
     //.then(job => {
