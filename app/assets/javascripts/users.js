@@ -87,10 +87,10 @@ class User {
 
 User.prototype.formatShow = function() {  
     //applicant not working. Can't access app.job.title****
-    let applicantHtml = this.job_applications.map(app => {
+    let applicantHtml = this.job_applications.map(application => {
         //console.log(this.applied_jobs)        
         return (`
-        <li>${app.job_id}</li>
+        <li><a href='/job_applications/${application.id}' data-id="${this.id}">${application.job_id}</a></li>
         `)
     }).join('')
     

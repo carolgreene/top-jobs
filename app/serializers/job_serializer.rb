@@ -1,5 +1,5 @@
 class JobSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :location, :company_name, :company_id, :salary, :created_at, :category
+  attributes :id, :title, :description, :location, :company_name, :company_id, :salary, :created_at, :category, :applicants
 
   belongs_to :company, :class_name => 'User', :foreign_key => 'company_id'
   has_many :job_applications 

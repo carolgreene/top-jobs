@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     else
       respond_to do |f|
         f.html
-        f.json {render json: @user}
+        f.json {render json: @user}        
       end
     end 
   end

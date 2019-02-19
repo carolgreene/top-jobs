@@ -2,14 +2,15 @@ $(document).ready(function() {
     bindClickHandlers()
 })
 
-const bindClickHandlers = () => {     
- $('.all_jobs').on('click', (e) => {
-     e.preventDefault()
+const bindClickHandlers = () => {   
+    
+    //***click event for jobs index link***
+     $('.all_jobs').on('click', (e) => {
+        e.preventDefault()
      //history.pushState(null, null, "jobs")
-     //alert('i was clicked')
-     fetch(`/jobs.json`)
-     .then((res) => res.json())
-     .then(jobs => {
+        fetch(`/jobs.json`)
+        .then((res) => res.json())
+        .then(jobs => {
         $('#app-container').html('')
         $(`#app-container`).html('Our Jobs')
         jobs.forEach(job => {    //or jobs.forEach(function(job) {
@@ -21,12 +22,10 @@ const bindClickHandlers = () => {
      })        
     })      
 
-
+    //***click event for job/id show link***
     $(document).on('click', ".show_link", function(e) {
         e.preventDefault()
         $(`#app-container`).html('')
-        //history.pushState(null, null, "jobs")
-        //alert('i was clicked')
         let id = $(this).attr('data-id')
         console.log(this)
         fetch(`/jobs/${id}.json`)
@@ -39,11 +38,10 @@ const bindClickHandlers = () => {
     
         })
     })
-   
+
+        //***click event to get new job form***
     $('button#new-job-form').on('click', function(e) {
         e.preventDefault() 
-        //let newJobForm = Job.newJobForm()
-        //debugger
         $.ajax({
             url: 'http://192.168.1.6:3000/jobs/new',
             method: 'GET',
@@ -55,7 +53,7 @@ const bindClickHandlers = () => {
         
     })
 
-    
+        //***click event to submit new job form***
     $(document).on('submit', "form#new_job.new_job", function(e) {
         e.preventDefault()         
                    
@@ -73,9 +71,9 @@ const bindClickHandlers = () => {
                 $(`#app-container`).html('').append(jobHtml)
             }
         })
-    
     })   
     
+    //***click event to get edit job form***
     $(document).on('click', 'button#edit-job.edit_job', function(e) {
         e.preventDefault()
         let id = $(this).attr('data-id')
@@ -89,6 +87,7 @@ const bindClickHandlers = () => {
             })
     })
 
+    //***click event to submit edit job form***
     //had to hard code job id in 1st line of code below. Everything else works***
     $(document).on('submit', `form#edit_job_44.edit_job`, function(e) {        
         e.preventDefault()           
