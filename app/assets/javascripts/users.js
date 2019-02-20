@@ -90,13 +90,13 @@ User.prototype.formatShow = function() {
     let applicantHtml = this.job_applications.map(application => {
         //console.log(this.applied_jobs)        
         return (`
-        <li><a href='/job_applications/${application.id}' data-id="${this.id}">${application.job_id}</a></li>
+        <li><a href='/job_applications/${application.id}' data-id="${application.id}">${application.job_id}</a></li>
         `)
     }).join('')
     
     let companyHtml = this.jobs.map(job => {
         return (`
-        <li><a href='/jobs/${this.id}' data-id="${this.id}" class="show_link">${job.title}</a> | ${job.location} | Date Posted: ${new Date(job.created_at).toDateString()}</li>
+        <li><a href='/jobs/${job.id}' data-id="${job.id}" class="show_link">${job.title}</a> | ${job.location} | Date Posted: ${new Date(job.created_at).toDateString()}</li>
     `)
     }).join('')
     if(this.role === 'company')

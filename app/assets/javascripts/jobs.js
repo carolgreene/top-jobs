@@ -91,7 +91,7 @@ const bindClickHandlers = () => {
     //had to hard code job id in 1st line of code below. Everything else works***
     $(document).on('submit', `form#edit_job_44.edit_job`, function(e) {        
         e.preventDefault()           
-        
+        alert('clicked')
         $.ajax({            
             type: ($("input[name='_method']").val() || this.method),            
             url: this.action,
