@@ -7,7 +7,7 @@ const bindClickHandlers = () => {
     //***click event for jobs index link***
      $('.all_jobs').on('click', (e) => {
         e.preventDefault()
-     //history.pushState(null, null, "jobs")
+     
         fetch(`/jobs.json`)
         .then((res) => res.json())
         .then(jobs => {
@@ -55,6 +55,7 @@ const bindClickHandlers = () => {
 
         //***click event to submit new job form***
     $(document).on('submit', "form#new_job.new_job", function(e) {
+         
         e.preventDefault()         
                    
         $.ajax({            
@@ -83,15 +84,18 @@ const bindClickHandlers = () => {
             method: 'GET',
             dataType: 'html',
             }).success(function (response) {
+                //debugger
+                
                $(`#app-container`).html('').append(response)
-            })
+            })            
+            
     })
 
     //***click event to submit edit job form***
-    //had to hard code job id in 1st line of code below. Everything else works***
-    $(document).on('submit', `form#edit_job_44.edit_job`, function(e) {        
+    
+    $(document).on('submit', 'form.edit_job', function(e) {            
         e.preventDefault()           
-        alert('clicked')
+        
         $.ajax({            
             type: ($("input[name='_method']").val() || this.method),            
             url: this.action,
