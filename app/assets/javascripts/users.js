@@ -71,23 +71,22 @@ function postSignIn() {
 }
 
 function postNewUser() {
-    $(document).on('submit', "form#new_user.new_user", function(e) {
-        e.preventDefault()
-        //alert('you clicked me!')
-        $.ajax({
-            type: ($("input[name='_method']").val() || this.method),
-            url: this.action,
-            data: $(this).serialize(),
-            dataType: 'json', 
-            success: function(response)
-            {
-               console.log(response) 
-               let newUser = new User(response)
-               let userHtml = newUser.formatShow()
-               $(`#app-container`).html('').append(userHtml)
-            }
-        })
+  $(document).on('submit', "form#new_user.new_user", function(e) {
+    e.preventDefault()
+        
+    $.ajax({
+      type: ($("input[name='_method']").val() || this.method),
+      url: this.action,
+      data: $(this).serialize(),
+      dataType: 'json', 
+      success: function(response)
+      {
+        let newUser = new User(response)
+        let userHtml = newUser.formatShow()
+        $(`#app-container`).html('').append(userHtml)
+      }
     })
+  })
 }
 
 
