@@ -3,8 +3,8 @@ $(document).ready(function() {
 })
 
 function bindClickHandlers() {  
-    getAllJobs()
-    getJob()
+    listenForClickAllJobs()
+    listenForClickOnJob()
     getNewJobForm()
     submitNewJob()
     editJobForm()
@@ -14,31 +14,39 @@ function bindClickHandlers() {
     
     //***click event for jobs index link***
 
-    function getAllJobs() {
+    function listenForClickAllJobs() {
      $('.all_jobs').on('click', (e) => {
         e.preventDefault()
-     
+        $(`#app-container`).html('Our Jobs')
+        getAllJobs()
+    })        
+} 
+
+    function getAllJobs() {
         fetch(`/jobs.json`)
         .then((res) => res.json())
-        .then(jobs => {
-        $('#app-container').html('')
-        $(`#app-container`).html('Our Jobs')
+        .then(jobs => {            
         jobs.forEach(job => {    //or jobs.forEach(function(job) {
             let newJob = new Job(job)
             let jobHtml = newJob.formatIndex()
             $(`#app-container`).append(jobHtml)
-            //console.log(newJob)
         })
-     })        
     }) 
 }     
 
     //***click event for job/id show link***
-    function getJob() {
+    function listenForClickOnJob() {
     $(document).on('click', ".show_link", function(e) {
         e.preventDefault()
         $(`#app-container`).html('')
         let id = $(this).attr('data-id')
+        getJob(id) 
+    })
+   }
+
+
+     function getJob(id) {   
+        //let id = $(this).attr('data-id')
         console.log(this)
         fetch(`/jobs/${id}.json`)
         .then((res) => res.json())
@@ -49,8 +57,8 @@ function bindClickHandlers() {
         $(`#app-container`).append(jobHtml)
     
         })
-    })
-}
+    }
+
 
         //***click event to get new job form***
     function getNewJobForm() {   
