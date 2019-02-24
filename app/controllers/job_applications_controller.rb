@@ -49,10 +49,10 @@ class JobApplicationsController < ApplicationController
     if params[:job_id]
       @job = Job.find_by(id: params[:job_id])      
       @job_application = @job.job_applications.find_by(id: params[:id])      
-      authorize @job_application
+      authorize @job_application      
     else
       find_job_application 
-      authorize @job_application
+      authorize @job_application      
     end
   end
 

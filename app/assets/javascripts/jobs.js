@@ -2,9 +2,19 @@ $(document).ready(function() {
     bindClickHandlers()
 })
 
-const bindClickHandlers = () => {   
+function bindClickHandlers() {  
+    getAllJobs()
+    getJob()
+    getNewJobForm()
+    submitNewJob()
+    editJobForm()
+    submitEditJob()
+    seeApplicants()
+} 
     
     //***click event for jobs index link***
+
+    function getAllJobs() {
      $('.all_jobs').on('click', (e) => {
         e.preventDefault()
      
@@ -20,9 +30,11 @@ const bindClickHandlers = () => {
             //console.log(newJob)
         })
      })        
-    })      
+    }) 
+}     
 
     //***click event for job/id show link***
+    function getJob() {
     $(document).on('click', ".show_link", function(e) {
         e.preventDefault()
         $(`#app-container`).html('')
@@ -38,8 +50,10 @@ const bindClickHandlers = () => {
     
         })
     })
+}
 
         //***click event to get new job form***
+    function getNewJobForm() {   
     $('button#new-job-form').on('click', function(e) {
         e.preventDefault() 
         $.ajax({
@@ -52,8 +66,11 @@ const bindClickHandlers = () => {
         })
         
     })
+}
 
         //***click event to submit new job form***
+
+    function submitNewJob() {    
     $(document).on('submit', "form#new_job.new_job", function(e) {
          
         e.preventDefault()         
@@ -72,9 +89,11 @@ const bindClickHandlers = () => {
                 $(`#app-container`).html('').append(jobHtml)
             }
         })
-    })   
+    }) 
+}  
     
     //***click event to get edit job form***
+    function editJobForm() {
     $(document).on('click', 'button#edit-job.edit_job', function(e) {
         e.preventDefault()
         let id = $(this).attr('data-id')
@@ -90,9 +109,11 @@ const bindClickHandlers = () => {
             })            
             
     })
+}
 
     //***click event to submit edit job form***
-    
+
+    function submitEditJob() {
     $(document).on('submit', 'form.edit_job', function(e) {            
         e.preventDefault()           
         
@@ -111,9 +132,10 @@ const bindClickHandlers = () => {
             }
         })
     
-    })   
+    })  
+} 
 
-
+    function seeApplicants() {
     $(document).on('click', 'button#see-applicants.see_applicants', function(e) {
     //$('button#see-applicants.see_applicants').on('click', (e) => {
         e.preventDefault() 
@@ -137,7 +159,8 @@ const bindClickHandlers = () => {
             })
         })
        
-     })      
+     })  
+    }    
 
 
 
@@ -159,7 +182,7 @@ $(document).on('click', '#next-job', function() {
     //})
 })
     
-}
+
 
 
 class Job {
@@ -178,7 +201,7 @@ class Job {
 
 Job.prototype.formatIndex = function() {
     let jobHtml = `
-    <a href="/jobs/${this.id}" data-id="${this.id}" class="show_link"><h3>${this.title}</a> |
+    <a href="/jobs/${this.id}" data-id="${this.id}" class="show_link"><h3>${this.title}</a> 
     <li>${this.company_name} |
     ${this.location} |
     Date Posted:${this.created_at}</li>
@@ -210,12 +233,12 @@ class Applicant {
 
 Applicant.prototype.formatApplicant = function() {
     let applicantHtml = `
-    
-    <a href="/jobs/${this.job_id}/job_applications/${this.id}" data-id="${this.id}" class="app_link"><h3>${this.name}</a>
-    | Date Applied: ${this.created_at}
+    <li>${this.name} | Date Applied: ${this.created_at}
     `
     return applicantHtml
 }
 
+
+//<a href="/jobs/${this.job_id}/job_applications/${this.id}" data-id="${this.id}" class="app_link"><h3>${this.name}</a>
 
 

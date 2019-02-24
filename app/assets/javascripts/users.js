@@ -2,7 +2,14 @@ $(document).ready(function() {
     bindEventListeners()
 })
 
-const bindEventListeners = () => {
+function bindEventListeners() {
+  getSignInForm()
+  getNewUserForm()
+  postSignIn()
+  postNewUser()
+}
+
+function getSignInForm() {
  $('.sign_in').on('click', (e) => {
     e.preventDefault() 
     
@@ -15,9 +22,11 @@ const bindEventListeners = () => {
       $(`#app-container`).html('').append(response)
     })    
   })
+}
 
 
-  $('.sign_up').on('click', (e) => {
+function getNewUserForm() { 
+$('.sign_up').on('click', (e) => {
     e.preventDefault()
     
     $.ajax({
@@ -29,8 +38,10 @@ const bindEventListeners = () => {
         $(`#app-container`).html('').append(response)
     })
   })
+}
 
 
+function postSignIn() {
   $(document).on('submit', "form#signin_form", function(e) {
     e.preventDefault()   
         
@@ -51,7 +62,9 @@ const bindEventListeners = () => {
         }
     })
   })
+}
 
+function postNewUser() {
     $(document).on('submit', "form#new_user.new_user", function(e) {
         e.preventDefault()
         //alert('you clicked me!')
@@ -70,6 +83,7 @@ const bindEventListeners = () => {
         })
     })
 }
+
 
 class User {
     constructor(user) {
