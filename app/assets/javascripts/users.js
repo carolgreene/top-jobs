@@ -3,42 +3,48 @@ $(document).ready(function() {
 })
 
 function bindEventListeners() {
-  getSignInForm()
-  getNewUserForm()
+  listenForClickSignInForm()
+  listenForClickNewUserForm()
   postSignIn()
   postNewUser()
 }
 
-function getSignInForm() {
+function listenForClickSignInForm() {
  $('.sign_in').on('click', (e) => {
     e.preventDefault() 
-    
-    $.ajax({
-        url: 'http://192.168.1.6:3000/signin',
-        method: 'GET',
-        dataType: 'html',
+    getSignInForm() 
+ })
+}
 
-    }).success(function (response) {
-      $(`#app-container`).html('').append(response)
-    })    
-  })
+function getSignInForm() {
+  $.ajax({
+    url: 'http://192.168.1.6:3000/signin',
+    method: 'GET',
+    dataType: 'html',
+  }).success(function (response) {
+    $(`#app-container`).html('').append(response)
+  })    
 }
 
 
-function getNewUserForm() { 
-$('.sign_up').on('click', (e) => {
+
+function listenForClickNewUserForm() { 
+  $('.sign_up').on('click', (e) => {
     e.preventDefault()
-    
-    $.ajax({
-        url: 'http://192.168.1.6:3000/users/new',
-        method: 'GET',
-        dataType: 'html',
-
-    }).success(function (response) {
-        $(`#app-container`).html('').append(response)
-    })
+    getNewUserForm()
   })
 }
+
+function getNewUserForm() {
+  $.ajax({
+    url: 'http://192.168.1.6:3000/users/new',
+    method: 'GET',
+    dataType: 'html',
+  }).success(function (response) {
+    $(`#app-container`).html('').append(response)
+  })
+}
+
 
 
 function postSignIn() {
