@@ -141,10 +141,8 @@ function bindClickHandlers() {
     function listenForClickSeeApplicants() {
     $(document).on('click', 'button#see-applicants.see_applicants', function(e) {
     //$('button#see-applicants.see_applicants').on('click', (e) => {
-        e.preventDefault() 
-        
-        $(`#app-container`).html('Applicants')
-        
+        e.preventDefault()         
+        $(`#app-container`).html('Applicants')        
         let id = $(this).attr('data-id')
         getApplicants(id)
     })
@@ -228,6 +226,7 @@ Job.prototype.formatShow = function() {
 
 class Applicant {
     constructor(applicant) {
+        this.job_id = applicant.job_id
         this.id = applicant.id 
         this.name = applicant.name
         this.created_at = new Date(applicant.created_at).toDateString()
@@ -235,13 +234,12 @@ class Applicant {
 }
 
 Applicant.prototype.formatApplicant = function() {
-    let applicantHtml = `
-    <li>${this.name} | Date Applied: ${this.created_at}
+    let applicantHtml = `    
+    
+    <a href="/jobs/${this.job_id}/job_applications/${this.id}" data-id="${this.id}" class="app_link"><h3>${this.name}</a> |
+    Date Applied: ${this.created_at}
     `
     return applicantHtml
 }
-
-
-//<a href="/jobs/${this.job_id}/job_applications/${this.id}" data-id="${this.id}" class="app_link"><h3>${this.name}</a>
 
 
