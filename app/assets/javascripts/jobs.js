@@ -6,10 +6,10 @@ function bindClickHandlers() {
     listenForClickAllJobs()
     listenForClickOnJob()
     listenForClickNewJobForm()
-    listenForClickSubmitNewJob()
-    editJobForm()
+    submitNewJob()
+    listenForClickEditJobForm()
     submitEditJob()
-    seeApplicants()
+    listenForClickSeeApplicants()
 } 
     
     //***click event for jobs index link***
@@ -76,7 +76,7 @@ function bindClickHandlers() {
 
         //***click event to submit new job form***
 
-    function SubmitNewJob() {    
+    function submitNewJob() {    
     $(document).on('submit', "form#new_job.new_job", function(e) {         
         e.preventDefault()    
                  
@@ -97,23 +97,25 @@ function bindClickHandlers() {
   
     
     //***click event to get edit job form***
-    function editJobForm() {
+    function listenForClickEditJobForm() {
     $(document).on('click', 'button#edit-job.edit_job', function(e) {
         e.preventDefault()
         let id = $(this).attr('data-id')
+        getEditJobForm(id)
+    })
+}
 
+    function getEditJobForm(id) {
         $.ajax({
             url: `http://192.168.1.6:3000/jobs/${id}/edit`,
             method: 'GET',
             dataType: 'html',
-            }).success(function (response) {
-                //debugger
-                
-               $(`#app-container`).html('').append(response)
-            })            
-            
-    })
-}
+        }).success(function (response) {
+         $(`#app-container`).html('').append(response)
+        })            
+    }   
+    
+
 
     //***click event to submit edit job form***
 
@@ -128,43 +130,40 @@ function bindClickHandlers() {
             dataType: 'json',
             success: function(response)            
            {
-                console.log(response)
-                let newJob = new Job(response)
-                let jobHtml = newJob.formatShow()   
-                                
-                $(`#app-container`).html('').append(jobHtml)
+            let newJob = new Job(response)
+            let jobHtml = newJob.formatShow()   
+            $(`#app-container`).html('').append(jobHtml)
             }
-        })
-    
+        })    
     })  
 } 
 
-    function seeApplicants() {
+    function listenForClickSeeApplicants() {
     $(document).on('click', 'button#see-applicants.see_applicants', function(e) {
     //$('button#see-applicants.see_applicants').on('click', (e) => {
         e.preventDefault() 
         
         $(`#app-container`).html('Applicants')
-        //alert('i was clicked')
-        let id = $(this).attr('data-id')
-
-        fetch(`/jobs/${id}/job_applications.json`)
         
-        .then(function(res) {
-        return res.json()
-        })
-        .then(function(applicants) {
-            
-            applicants.forEach(applicant => {
-                let newApplicant = new Applicant(applicant)
-                let applicantHtml = newApplicant.formatApplicant()                
-                $(`#app-container`).append(applicantHtml)
-                
+        let id = $(this).attr('data-id')
+        getApplicants(id)
+    })
+}
+
+        function getApplicants(id) {
+        fetch(`/jobs/${id}/job_applications.json`)
+        .then((res) => res.json())       
+        .then((applicants) => {
+           applicants.forEach(applicant => {
+             let newApplicant = new Applicant(applicant)
+             let applicantHtml = newApplicant.formatApplicant()                
+             $(`#app-container`).append(applicantHtml)
             })
         })
-       
-     })  
-    }    
+    }  
+        
+        
+        
 
 
 
