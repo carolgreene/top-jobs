@@ -5,8 +5,8 @@ $(document).ready(function() {
 function bindClickHandlers() {  
     listenForClickAllJobs()
     listenForClickOnJob()
-    getNewJobForm()
-    submitNewJob()
+    listenForClickNewJobForm()
+    listenForClickSubmitNewJob()
     editJobForm()
     submitEditJob()
     seeApplicants()
@@ -37,52 +37,49 @@ function bindClickHandlers() {
     //***click event for job/id show link***
     function listenForClickOnJob() {
     $(document).on('click', ".show_link", function(e) {
-        e.preventDefault()
-        $(`#app-container`).html('')
-        let id = $(this).attr('data-id')
-        getJob(id) 
+      e.preventDefault()
+      $(`#app-container`).html('')
+      let id = $(this).attr('data-id')
+      getJob(id) 
     })
    }
 
-
      function getJob(id) {   
-        //let id = $(this).attr('data-id')
-        console.log(this)
-        fetch(`/jobs/${id}.json`)
-        .then((res) => res.json())
-        .then(job => {
-            let newJob = new Job(job)
-            let jobHtml = newJob.formatShow()                  
-        
-        $(`#app-container`).append(jobHtml)
-    
-        })
-    }
+       fetch(`/jobs/${id}.json`)
+       .then((res) => res.json())
+       .then(job => {
+         let newJob = new Job(job)
+         let jobHtml = newJob.formatShow()          
+         $(`#app-container`).append(jobHtml)
+       })
+      }
 
 
         //***click event to get new job form***
-    function getNewJobForm() {   
+    function listenForClickNewJobForm() {   
     $('button#new-job-form').on('click', function(e) {
         e.preventDefault() 
+        getNewJobForm()
+    })
+}
+
+    function getNewJobForm() {
         $.ajax({
             url: 'http://192.168.1.6:3000/jobs/new',
             method: 'GET',
             dataType: 'html',
-
         }).success(function (response) {
           $(`#app-container`).html('').append(response)
-        })
-        
-    })
-}
+        })        
+    }
+
 
         //***click event to submit new job form***
 
-    function submitNewJob() {    
-    $(document).on('submit', "form#new_job.new_job", function(e) {
-         
-        e.preventDefault()         
-                   
+    function SubmitNewJob() {    
+    $(document).on('submit', "form#new_job.new_job", function(e) {         
+        e.preventDefault()    
+                 
         $.ajax({            
             type: ($("input[name='_method']").val() || this.method),            
             url: this.action,
@@ -90,15 +87,14 @@ function bindClickHandlers() {
             dataType: 'json',
             success: function(response)            
            {
-                console.log(response)
-                let newJob = new Job(response)
-                let jobHtml = newJob.formatShow()    
-                
-                $(`#app-container`).html('').append(jobHtml)
+             let newJob = new Job(response)
+             let jobHtml = newJob.formatShow()    
+             $(`#app-container`).html('').append(jobHtml)
             }
         })
-    }) 
-}  
+    })
+}
+  
     
     //***click event to get edit job form***
     function editJobForm() {
