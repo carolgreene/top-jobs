@@ -18,6 +18,10 @@ class JobApplicationsController < ApplicationController
       if params[:job_id] 
        @job = Job.find_by(id: params[:job_id])      
        @job_applications = @job.job_applications 
+       respond_to do |f|
+        f.html
+        f.json {render json: @job.job_applications}
+      end
       end  
       #else  
         #@job_applications = JobApplication.all   #s/only be for admin. Will add admin later

@@ -105,13 +105,42 @@ const bindClickHandlers = () => {
            {
                 console.log(response)
                 let newJob = new Job(response)
-                let jobHtml = newJob.formatShow()    
-                
+                let jobHtml = newJob.formatShow()   
+                                
                 $(`#app-container`).html('').append(jobHtml)
             }
         })
     
     })   
+
+
+    $(document).on('click', 'button#see-applicants.see_applicants', function(e) {
+    //$('button#see-applicants.see_applicants').on('click', (e) => {
+        e.preventDefault() 
+        
+        $(`#app-container`).html('Applicants')
+        //alert('i was clicked')
+        let id = $(this).attr('data-id')
+
+        fetch(`/jobs/${id}/job_applications.json`)
+        
+        .then(function(res) {
+        return res.json()
+        })
+        .then(function(applicants) {
+            
+            applicants.forEach(applicant => {
+                let newApplicant = new Applicant(applicant)
+                let applicantHtml = newApplicant.formatApplicant()                
+                $(`#app-container`).append(applicantHtml)
+                
+            })
+        })
+       
+     })      
+
+
+
 
 
 $(document).on('click', '#next-job', function() {
@@ -150,7 +179,7 @@ class Job {
 Job.prototype.formatIndex = function() {
     let jobHtml = `
     <a href="/jobs/${this.id}" data-id="${this.id}" class="show_link"><h3>${this.title}</a> |
-    ${this.company_name} |
+    <li>${this.company_name} |
     ${this.location} |
     Date Posted:${this.created_at}</li>
     `        
@@ -166,8 +195,26 @@ Job.prototype.formatShow = function() {
     ${this.salary}K </p>
     <button class="next", data-id="${this.id}" id="next-job">Next Job</button>
     <button class="edit_job", data-id="${this.id}" id="edit-job">Edit Job</button>
+    <button class="see_applicants", data-id=${this.id}" id="see-applicants">See Applicants</button>
     `
     return jobHtml
+}
+
+class Applicant {
+    constructor(applicant) {
+        this.id = applicant.id 
+        this.name = applicant.name
+        this.created_at = new Date(applicant.created_at).toDateString()
+    }
+}
+
+Applicant.prototype.formatApplicant = function() {
+    let applicantHtml = `
+    
+    <a href="/jobs/${this.job_id}/job_applications/${this.id}" data-id="${this.id}" class="app_link"><h3>${this.name}</a>
+    | Date Applied: ${this.created_at}
+    `
+    return applicantHtml
 }
 
 
