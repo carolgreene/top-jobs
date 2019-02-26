@@ -163,30 +163,7 @@ function bindClickHandlers() {
             })
         })
     }  
-        
-        
-        
-
-
-
-
-
-$(document).on('click', '#next-job', function() {
-    //console.log(this)
-    //alert("i was clicked")
-    let id = $(this).attr('data-id')
-    console.log(id)
-    let test = fetch(`jobs/${id}/next.json`)
-    console.log(test)
-    //.then(res => res.json())
-    //console.log(res)
-    //.then(job => {
-    //    let newJob = new Job(job)
-    //    let jobHTML = newJob.formatShow()
-    //    $(`#app-container`).append(jobHtml)
-    //})
-})
-    
+           
 
 
 
@@ -221,7 +198,7 @@ Job.prototype.formatShow = function() {
     ${this.location} |
     ${this.description} |
     ${this.salary}K </p>
-    <button class="next", data-id="${this.id}" id="next-job">Next Job</button>
+    
     <button class="edit_job", data-id="${this.id}" id="edit-job">Edit Job</button>
     <button class="see_applicants", data-id=${this.id}" id="see-applicants">See Applicants</button>
     `
