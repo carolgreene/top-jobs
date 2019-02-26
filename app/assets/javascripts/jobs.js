@@ -17,7 +17,8 @@ function bindClickHandlers() {
     function listenForClickAllJobs() {
      $('.all_jobs').on('click', (e) => {
         e.preventDefault()
-        $(`#app-container`).html('Our Jobs')
+        $(`#app-container`).html('')
+        $(`#heading`).html('Our Jobs')
         getAllJobs()
     })        
 } 
@@ -38,7 +39,7 @@ function bindClickHandlers() {
     function listenForClickOnJob() {
     $(document).on('click', ".show_link", function(e) {
       e.preventDefault()
-      $(`#app-container`).html('')
+      $(`#heading`).html('Job Details')
       let id = $(this).attr('data-id')
       getJob(id) 
     })
@@ -50,7 +51,7 @@ function bindClickHandlers() {
        .then(job => {
          let newJob = new Job(job)
          let jobHtml = newJob.formatShow()          
-         $(`#app-container`).append(jobHtml)
+         $(`#app-container`).html('').append(jobHtml)
        })
       }
 
@@ -69,6 +70,7 @@ function bindClickHandlers() {
             method: 'GET',
             dataType: 'html',
         }).success(function (response) {
+            $(`#heading`).html('')
           $(`#app-container`).html('').append(response)
         })        
     }
@@ -111,6 +113,7 @@ function bindClickHandlers() {
             method: 'GET',
             dataType: 'html',
         }).success(function (response) {
+            $(`#heading`).html('')
          $(`#app-container`).html('').append(response)
         })            
     }   
@@ -131,7 +134,8 @@ function bindClickHandlers() {
             success: function(response)            
            {
             let newJob = new Job(response)
-            let jobHtml = newJob.formatShow()   
+            let jobHtml = newJob.formatShow() 
+            $(`#heading`).html('Job Details')  
             $(`#app-container`).html('').append(jobHtml)
             }
         })    
@@ -142,7 +146,7 @@ function bindClickHandlers() {
     $(document).on('click', 'button#see-applicants.see_applicants', function(e) {
     //$('button#see-applicants.see_applicants').on('click', (e) => {
         e.preventDefault()         
-        $(`#app-container`).html('Applicants')        
+        $(`#heading`).html('Applicants For:')        
         let id = $(this).attr('data-id')
         getApplicants(id)
     })
