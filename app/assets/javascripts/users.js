@@ -62,8 +62,10 @@ function postSignIn() {
        {
         let newUser = new User(response)               
         let userHtml = newUser.formatShow()
+        let userLinks = newUser.formatLinks()
         $(`#heading`).html('')
         $(`#app-container`).html('').append(userHtml) 
+        $(`#nav`).append(userLinks)
        }
     })
   })
@@ -85,6 +87,7 @@ function postNewUser() {
       {
         let newUser = new User(response)
         let userHtml = newUser.formatShow()
+        
         $(`#heading`).html('')
         $(`#app-container`).html('').append(userHtml)
       }
@@ -143,7 +146,16 @@ User.prototype.formatShow = function() {
     `)
 }
 
-
+User.prototype.formatLinks = function() {
+  if(this.role === 'company')
+  return (`
+  <br>
+  <br>
+  <a href="/jobs/new" class='new_job_form'>Post New Job</a> |
+  <a href="/jobs" class='all_jobs'>All Jobs</a> |  
+  <a href="/signout" class='sign_out'>Log Out</a>
+  `) 
+}
 
 
 

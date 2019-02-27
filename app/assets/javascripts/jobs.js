@@ -15,7 +15,8 @@ function bindClickHandlers() {
     //***click event for jobs index link***
 
     function listenForClickAllJobs() {
-     $('.all_jobs').on('click', (e) => {
+     //$('.all_jobs').on('click', (e) => {
+         $(document).on('click', '.all_jobs', function(e) {
         e.preventDefault()
         $(`#app-container`).html('')
         $(`#heading`).html('Our Jobs')
@@ -58,7 +59,7 @@ function bindClickHandlers() {
 
         //***click event to get new job form***
     function listenForClickNewJobForm() {   
-    $('button#new-job-form').on('click', function(e) {
+    $(document).on('click', '.new_job_form', function(e) {
         e.preventDefault() 
         getNewJobForm()
     })
