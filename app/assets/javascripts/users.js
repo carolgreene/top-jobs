@@ -22,6 +22,7 @@ function getSignInForm() {
     method: 'GET',
     dataType: 'html',
   }).success(function (response) {
+    $(`#nav`).html('')
     $(`#app-container`).html('').append(response)
   })    
 }
@@ -41,6 +42,7 @@ function getNewUserForm() {
     method: 'GET',
     dataType: 'html',
   }).success(function (response) {
+    $(`#nav`).html('')
     $(`#app-container`).html('').append(response)
   })
 }
@@ -60,6 +62,7 @@ function postSignIn() {
        {
         let newUser = new User(response)               
         let userHtml = newUser.formatShow()
+        $(`#heading`).html('')
         $(`#app-container`).html('').append(userHtml) 
        }
     })
@@ -82,6 +85,7 @@ function postNewUser() {
       {
         let newUser = new User(response)
         let userHtml = newUser.formatShow()
+        $(`#heading`).html('')
         $(`#app-container`).html('').append(userHtml)
       }
     })
