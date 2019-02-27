@@ -1,12 +1,13 @@
 <h1>Welcome to Top Jobs</h1>
 <h2>The Newest Site for IT Jobs!</h2>
 
+<% if false %>
 <h3 class="all_jobs"><%= link_to "See Our Jobs", jobs_path %></h3><br> 
 <br>
 <br>
 <%= link_to "Sign In", signin_path %> |
 <%= link_to "Sign Up", new_user_path %><br>
-
+<% end %>
 
 
 <%= link_to 'Sign in with Facebook', '/auth/facebook', id: "sign_in", method: :get %>
