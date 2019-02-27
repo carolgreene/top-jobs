@@ -87,9 +87,11 @@ function postNewUser() {
       {
         let newUser = new User(response)
         let userHtml = newUser.formatShow()
+        let userLinks = newUser.formatLinks()
         
         $(`#heading`).html('')
         $(`#app-container`).html('').append(userHtml)
+        $(`#nav`).append(userLinks)
       }
     })
   })
