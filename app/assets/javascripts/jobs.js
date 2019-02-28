@@ -154,9 +154,9 @@ function bindClickHandlers() {
 } 
 
     function listenForClickSeeApplicants() {
-    $(document).on('click', 'button#see-applicants.see_applicants', function(e) {
+    $(document).on('click', '#see-applicants', function(e) {
     //$('button#see-applicants.see_applicants').on('click', (e) => {
-        e.preventDefault()         
+        e.preventDefault()   
         $(`#heading`).html('Applicants For:')        
         let id = $(this).attr('data-id')
         getApplicants(id)
@@ -219,11 +219,10 @@ Job.prototype.formatShow = function() {
 
 Job.prototype.formatShowLinks = function() {
     //if(this.role === 'company')
-    let jobLinks = `
-     
+    let jobLinks = `     
     <br>
     <a href="/jobs/${this.id}/edit" data-id="${this.id}" id="edit-job">Edit Job</a> |
-    <a href="/jobs/${this.id}/job_applications"  data-id"${this.id}" id="see-applicants">See Applicants</a>
+    <a href="/jobs/${this.id}/job_applications"  data-id="${this.id}" id="see-applicants">See Applicants</a>
     <br>
     <br>
     <a href="/jobs/new" class='new_job_form'>Post New Job</a> |
@@ -232,9 +231,6 @@ Job.prototype.formatShowLinks = function() {
     ` 
     return jobLinks
   }
-
-//<button class="edit_job", data-id="${this.id}" id="edit-job">Edit Job</button>
-//<button class="see_applications", data-id=${this.id}" id="see-applicants">See Applicants</button>
 
 
 class Applicant {
