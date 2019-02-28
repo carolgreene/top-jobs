@@ -16,15 +16,17 @@ function bindClickHandlers() {
 
     function listenForClickAllJobs() {
      //$('.all_jobs').on('click', (e) => {
-         $(document).on('click', '.all_jobs', function(e) {
+       $(document).on('click', '.all_jobs', function(e) {
         e.preventDefault()
         $(`#app-container`).html('')
         $(`#heading`).html('Our Jobs')
+        $(`#nav`).html('')
         getAllJobs()
     })        
 } 
 
     function getAllJobs() {
+         
         fetch(`/jobs.json`)
         .then((res) => res.json())
         .then(jobs => {            
@@ -32,7 +34,10 @@ function bindClickHandlers() {
             let newJob = new Job(job)
             let jobHtml = newJob.formatIndex()
             $(`#app-container`).append(jobHtml)
+
         })
+        $(`#nav`).html(`<a href="/signout" class='sign_out'>Log Out</a> | 
+        <a href="/users" class='my_jobs'>My Jobs</a>` )
     }) 
 }     
 
@@ -51,8 +56,10 @@ function bindClickHandlers() {
        .then((res) => res.json())
        .then(job => {
          let newJob = new Job(job)
-         let jobHtml = newJob.formatShow()          
+         let jobHtml = newJob.formatShow()  
+         let jobLinks = newJob.formatShowLinks()        
          $(`#app-container`).html('').append(jobHtml)
+         $(`#nav`).html('').append(jobLinks)
        })
       }
 
@@ -101,7 +108,7 @@ function bindClickHandlers() {
     
     //***click event to get edit job form***
     function listenForClickEditJobForm() {
-    $(document).on('click', 'button#edit-job.edit_job', function(e) {
+    $(document).on('click', '#edit-job', function(e) {
         e.preventDefault()
         let id = $(this).attr('data-id')
         getEditJobForm(id)
@@ -116,6 +123,7 @@ function bindClickHandlers() {
         }).success(function (response) {
             $(`#heading`).html('')
          $(`#app-container`).html('').append(response)
+         $(`#nav`).html('')
         })            
     }   
     
@@ -136,8 +144,10 @@ function bindClickHandlers() {
            {
             let newJob = new Job(response)
             let jobHtml = newJob.formatShow() 
+            let jobLinks = newJob.formatShowLinks()
             $(`#heading`).html('Job Details')  
             $(`#app-container`).html('').append(jobHtml)
+            $(`#nav`).html('').append(jobLinks)
             }
         })    
     })  
@@ -198,13 +208,34 @@ Job.prototype.formatShow = function() {
     <p>${this.company_name} |
     ${this.location} |
     ${this.description} |
-    ${this.salary}K </p>
+    ${this.salary}K </p>   
     
-    <button class="edit_job", data-id="${this.id}" id="edit-job">Edit Job</button>
-    <button class="see_applicants", data-id=${this.id}" id="see-applicants">See Applicants</button>
     `
     return jobHtml
 }
+
+
+
+
+Job.prototype.formatShowLinks = function() {
+    //if(this.role === 'company')
+    let jobLinks = `
+     
+    <br>
+    <a href="/jobs/${this.id}/edit" data-id="${this.id}" id="edit-job">Edit Job</a> |
+    <a href="/jobs/${this.id}/job_applications"  data-id"${this.id}" id="see-applicants">See Applicants</a>
+    <br>
+    <br>
+    <a href="/jobs/new" class='new_job_form'>Post New Job</a> |
+    <a href="/jobs" class='all_jobs'>All Jobs</a> |  
+    <a href="/signout" class='sign_out'>Log Out</a>
+    ` 
+    return jobLinks
+  }
+
+//<button class="edit_job", data-id="${this.id}" id="edit-job">Edit Job</button>
+//<button class="see_applications", data-id=${this.id}" id="see-applicants">See Applicants</button>
+
 
 class Applicant {
     constructor(applicant) {
