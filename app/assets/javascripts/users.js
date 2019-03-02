@@ -136,7 +136,7 @@ User.prototype.formatShow = function() {
     <br>
     <ul>${companyHtml}</ul>
     `) 
-    else 
+    else     
     return (`
     <h3>Hi ${this.name}</h3>
     <h4>Type: ${this.role}</h4>
@@ -147,6 +147,7 @@ User.prototype.formatShow = function() {
     <ul>${applicantHtml}</ul> 
     `)
 }
+
 
 User.prototype.formatLinks = function() {
   if(this.role === 'company')

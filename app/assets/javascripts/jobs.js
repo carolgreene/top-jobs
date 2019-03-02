@@ -80,6 +80,7 @@ function bindClickHandlers() {
         }).success(function (response) {
             $(`#heading`).html('')
           $(`#app-container`).html('').append(response)
+          $(`#nav`).html('')
         })        
     }
 
@@ -98,8 +99,10 @@ function bindClickHandlers() {
             success: function(response)            
            {
              let newJob = new Job(response)
-             let jobHtml = newJob.formatShow()    
+             let jobHtml = newJob.formatShow()  
+             let jobLinks = newJob.formatShowLinks() 
              $(`#app-container`).html('').append(jobHtml)
+             $(`#nav`).html('').append(jobLinks)
             }
         })
     })
@@ -171,6 +174,7 @@ function bindClickHandlers() {
              let newApplicant = new Applicant(applicant)
              let applicantHtml = newApplicant.formatApplicant()                
              $(`#app-container`).append(applicantHtml)
+             
             })
         })
     }  

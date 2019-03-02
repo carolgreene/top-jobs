@@ -42,6 +42,8 @@
 
     <%= link_to 'My Jobs', user_path(@user.id) %> |
 
-    <%= link_to "All Jobs", jobs_path %> |
+    <%= link_to "All Jobs", jobs_path, class: 'all_jobs' %> |
 
     <%= link_to "Log Out", signout_path %>
+
+    

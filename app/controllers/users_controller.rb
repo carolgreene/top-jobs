@@ -30,8 +30,8 @@ class UsersController < ApplicationController
       redirect_to jobs_path
     else
       respond_to do |f|
-        f.html
-        f.json {render json: @user}        
+      f.html
+      f.json {render json: @user} 
       end
     end 
   end
