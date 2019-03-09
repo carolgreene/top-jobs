@@ -114,10 +114,10 @@ class User {
 
 User.prototype.formatShow = function() {  
     //applicant not working. Can't access app.job.title****
-    let applicantHtml = this.job_applications.map(application => {
+    let applicantHtml = this.job_applications.map(application => { 
         //console.log(this.applied_jobs)        
         return (`
-        <li><a href='/job_applications/${application.id}' data-id="${application.id}">${application.id}</a> | Job Title | Company Name </li>
+        <li><a href='/job_applications/${application.id}' data-id="${application.id}">${application.id}</a> | Job Title | Company Name | Applied: ${new Date(application.created_at).toDateString()} </li>
         `)
     }).join('')
     
