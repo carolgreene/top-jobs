@@ -10,7 +10,12 @@
 <% end %>
 
 
-<%= link_to 'Sign in with Facebook', '/auth/facebook', id: "sign_in", method: :get %>
-
+<%= link_to 'Sign in with Facebook', '/auth/facebook', id: "sign_in", method: :get %><br>
+<br>
+<%= link_to "All Jobs", jobs_path, id: 'all-jobs-link', class: 'all_jobs' %> |
+<%= link_to "Sign In", signin_path, id: 'sign-in-link', class: 'sign_in' %> |
+<%= link_to "Sign Up", new_user_path, id: 'sign-up-link', class: 'sign_up' %> |
+<%= link_to "Log Out", signout_path, id: 'sign-out-link', class: 'sign_out' %> 
+      
 
 
