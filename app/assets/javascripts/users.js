@@ -158,6 +158,13 @@ User.prototype.formatLinks = function() {
   <a href="/jobs" class='all_jobs'>All Jobs</a> |  
   <a href="/signout" class='sign_out'>Log Out</a>
   `) 
+  else 
+  return (`
+  <br>
+  <br>
+  <a href="/jobs" class='all_jobs'>All Jobs</a> |  
+  <a href="/signout" class='sign_out'>Log Out</a>
+  `)
 }
 
 
