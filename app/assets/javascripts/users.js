@@ -117,7 +117,7 @@ User.prototype.formatShow = function() {
     let applicantHtml = this.job_applications.map(application => {
         //console.log(this.applied_jobs)        
         return (`
-        <li><a href='/job_applications/${application.id}' data-id="${application.id}">${application.job_id}</a></li>
+        <li><a href='/job_applications/${application.id}' data-id="${application.id}">${application.id}</a> | Job Title | Company Name </li>
         `)
     }).join('')
     

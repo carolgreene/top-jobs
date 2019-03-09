@@ -172,9 +172,11 @@ function bindClickHandlers() {
         .then((applicants) => {
            applicants.forEach(applicant => {
              let newApplicant = new Applicant(applicant)
-             let applicantHtml = newApplicant.formatApplicant()                
+             let applicantHtml = newApplicant.formatApplicant() 
+             let applicantLinks = newApplicant.formatApplicantLinks()
+             $(`#app-container`)              
              $(`#app-container`).append(applicantHtml)
-             
+             $(`#nav`).html('').append(applicantLinks)
             })
         })
     }  
@@ -208,12 +210,13 @@ Job.prototype.formatIndex = function() {
 
 Job.prototype.formatShow = function() {
     let jobHtml = `
-    <h3>${this.title}</h3>     
-    <p>${this.company_name} |
-    ${this.location} |
-    ${this.description} |
-    ${this.salary}K </p>   
-    
+    ${this.title} <br>  
+    Posted: ${this.created_at} <br>  
+    ${this.company_name} <br>
+    ${this.location} <br>
+    ${this.salary}K <br>
+    ${this.description} <br>  
+    <br>
     `
     return jobHtml
 }
@@ -248,11 +251,21 @@ class Applicant {
 
 Applicant.prototype.formatApplicant = function() {
     let applicantHtml = `    
-    
     <a href="/jobs/${this.job_id}/job_applications/${this.id}" data-id="${this.id}" class="app_link"><h3>${this.name}</a> |
-    Date Applied: ${this.created_at}
+    Date Applied: ${this.created_at}    
     `
     return applicantHtml
 }
 
+Applicant.prototype.formatApplicantLinks = function() {
+    //if(this.role === 'company')
+    let applicantLinks = `     
+    <br>
+    <a href="/jobs/${this.job_id}/edit" data-id="${this.job_id}" id="edit-job">Edit Job</a> |
+    <a href="/jobs/new" class='new_job_form'>Post New Job</a> |
+    <a href="/jobs" class='all_jobs'>All Jobs</a> |  
+    <a href="/signout" class='sign_out'>Log Out</a>
+    ` 
+    return applicantLinks
+  }
 
