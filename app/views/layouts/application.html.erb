@@ -9,41 +9,35 @@
     <%= javascript_include_tag 'application' %>
 
     <% if !flash.empty? %>
-    <div id="flash"> 
+      <div id="flash"> 
         <% flash.keys.each do |k| %> 
-            <div class="<%= k %>">
-                <%= flash[k] %>
-            </div>  
+          <div class="<%= k %>">
+            <%= flash[k] %>
+          </div>  
         <% end %>   
-    </div>
-<% end %>
+      </div>
+    <% end %>
 
 
 
   </head>
 
   <body>
-
   
   
-  <h3><div id="heading"></div></h3>
+    <h3><div id="heading"></div></h3>
 
-    <div id="app-container">
-
-         
+    <div id="app-container">       
          
 
-            <%= yield %><br>
+        <%= yield %><br>
          
-    <%-# <button id='new-job-form'>Post a New Job</button> -%>
+      <%-# <button id='new-job-form'>Post a New Job</button> -%>
 
     </div>
     <br>
 
-    <div id="nav">
-
-    
-    </div>
+    <div id="nav"></div>
 
   </body>
 </html>
