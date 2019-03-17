@@ -2,11 +2,13 @@ $(document).ready(function() {
   bindEventListeners()
 })
 
+
 function bindEventListeners() {
   listenForClickSignInForm()
   listenForClickNewUserForm()
   postSignIn()
   postNewUser()
+  listenForClickSortJobs()
 }
 
 function listenForClickSignInForm() {
@@ -64,7 +66,7 @@ function postSignIn() {
 
          $(`#heading`).html('')
          $(`#app-container`).html('').append(userHtml) 
-         $(`#nav`).append(userLinks)
+         $(`#nav`).append(userLinks)         
        }
     })
   })
@@ -74,7 +76,7 @@ function postSignIn() {
 function postNewUser() {
   $(document).on('submit', "form#new_user.new_user", function(e) {
     e.preventDefault()
-        
+       
     $.ajax({
       type: ($("input[name='_method']").val() || this.method),
       url: this.action,
@@ -91,6 +93,14 @@ function postNewUser() {
         $(`#nav`).append(userLinks)
       }
     })
+  })
+}
+
+function listenForClickSortJobs() {
+  $(document).on('click', 'button#sort_jobs', function(e) {
+    alert("i've been clicked")
+      
+    
   })
 }
 
@@ -116,6 +126,8 @@ User.prototype.formatShow = function() {
       <li><a href='/job_applications/${application.id}' data-id="${application.id}">${application.id}</a> | Job Title | Company Name | Applied: ${new Date(application.created_at).toDateString()} </li>
     `)
   }).join('')
+
+  
     
   let companyHtml = this.jobs.map(job => {
     return (`
@@ -149,10 +161,13 @@ User.prototype.formatLinks = function() {
   if(this.role === 'company')
     return (`
     <br>
+    <button class="sort_jobs", data-id="${this.id}" id="sort_jobs">Sort Jobs</button>  
+    <br>
     <br>
     <a href="/jobs/new" class='new_job_form'>Post New Job</a> |
     <a href="/jobs" class='all_jobs'>All Jobs</a> |  
     <a href="/signout" class='sign_out'>Log Out</a>
+    
     `) 
   else 
     return (`
