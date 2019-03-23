@@ -61,11 +61,13 @@ function postSignIn() {
        success: function(response)
        {
          let newUser = new User(response)               
-         let userHtml = newUser.formatShow()
+         let userHtml = newUser.formatUserInfoShow()
          let userLinks = newUser.formatLinks()
+         let sortableHtml = newUser.formatUserJobsShow()
 
          $(`#heading`).html('')
-         $(`#app-container`).html('').append(userHtml) 
+         $(`#app-container`).html('').append(userHtml)  
+         $(`#user-jobs`).append(sortableHtml)
          $(`#nav`).append(userLinks)         
        }
     })
@@ -89,7 +91,7 @@ function postNewUser() {
         let userLinks = newUser.formatLinks()
         
         $(`#heading`).html('')
-        $(`#app-container`).html('').append(userHtml)
+        $(`#app-container`).html('').append(userHtml)     
         $(`#nav`).append(userLinks)
       }
     })
@@ -117,8 +119,29 @@ class User {
   }
 }
 
+User.prototype.formatUserInfoShow = function() {
+  if(this.role === 'company')
+    return (` 
+    <h3>Hi ${this.name}</h3>
+    <h4>Type: ${this.role}</h4>
+    <br>
+    <br>
+    <h4>Jobs Posted</h4>    
+    `) 
+  else     
+    return (`
+    <h3>Hi ${this.name}</h3>
+    <h4>Type: ${this.role}</h4>
+    <br>
+    <br>
+    <h4>Jobs Applied To</h4>     
+  `)
+}
 
-User.prototype.formatShow = function() {  
+
+
+
+User.prototype.formatUserJobsShow = function() {  
   //applicant not working. Can't access app.job.title****
   let applicantHtml = this.job_applications.map(application => { 
     //console.log(this.applied_jobs)        
@@ -135,22 +158,12 @@ User.prototype.formatShow = function() {
     `)
   }).join('')
   if(this.role === 'company')
-    return (` 
-    <h3>Hi ${this.name}</h3>
-    <h4>Type: ${this.role}</h4>
-    <br>
-    <br>
-    <h4>Jobs Posted</h4>
+    return (`    
     <br>
     <ul>${companyHtml}</ul>
     `) 
   else     
-    return (`
-    <h3>Hi ${this.name}</h3>
-    <h4>Type: ${this.role}</h4>
-    <br>
-    <br>
-    <h4>Jobs Applied To</h4>
+    return (`    
     <br>
     <ul>${applicantHtml}</ul> 
   `)
@@ -161,7 +174,7 @@ User.prototype.formatLinks = function() {
   if(this.role === 'company')
     return (`
     <br>
-    <button class="sort_jobs", data-id="${this.id}" id="sort_jobs">Sort Jobs</button>  
+    <button class="sort_jobs" data-id="${this.id}" id="sort_jobs">Sort Jobs</button> 
     <br>
     <br>
     <a href="/jobs/new" class='new_job_form'>Post New Job</a> |
