@@ -2,6 +2,8 @@ $(document).ready(function() {
   bindEventListeners()
 })
 
+let sortableJobs = []
+
 
 function bindEventListeners() {
   listenForClickSignInForm()
@@ -142,6 +144,8 @@ User.prototype.formatUserInfoShow = function() {
 
 
 User.prototype.formatUserJobsShow = function() {  
+  sortableJobs = this.jobs
+
   //applicant not working. Can't access app.job.title****
   let applicantHtml = this.job_applications.map(application => { 
     //console.log(this.applied_jobs)        
@@ -190,6 +194,3 @@ User.prototype.formatLinks = function() {
     <a href="/signout" class='sign_out'>Log Out</a>
   `)
 }
-
-
-
