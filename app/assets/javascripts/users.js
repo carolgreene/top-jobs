@@ -67,7 +67,7 @@ function postSignIn() {
 
          $(`#heading`).html('')
          $(`#app-container`).html('').append(userHtml)  
-         $(`#user-jobs`).append(sortableHtml)
+         $(`#user-jobs`).html('').append(sortableHtml)
          $(`#nav`).append(userLinks)         
        }
     })

@@ -18,6 +18,7 @@ function listenForClickAllJobs() {
   $(document).on('click', '.all_jobs', function(e) {
     e.preventDefault()
     $(`#app-container`).html('')
+    $(`#user-jobs`).html('')
     $(`#heading`).html('Our Jobs')
     $(`#nav`).html('')
     getAllJobs()
@@ -54,7 +55,8 @@ function getJob(id) {
   .then(job => {
     let newJob = new Job(job)
     let jobHtml = newJob.formatShow()  
-    let jobLinks = newJob.formatShowLinks()        
+    let jobLinks = newJob.formatShowLinks() 
+    $(`#user-jobs`).html('')       
     $(`#app-container`).html('').append(jobHtml)
     $(`#nav`).html('').append(jobLinks)
   })
@@ -77,6 +79,7 @@ function getNewJobForm() {
   }).success(function (response) {
     $(`#heading`).html('')
     $(`#app-container`).html('').append(response)
+    $(`#user-jobs`).html('')
     $(`#nav`).html('')
   })        
 }
