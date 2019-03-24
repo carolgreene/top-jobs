@@ -2,7 +2,7 @@ $(document).ready(function() {
   bindEventListeners()
 })
 
-let sortableJobs = []
+const sortableJobs = []
 
 
 function bindEventListeners() {
@@ -10,7 +10,7 @@ function bindEventListeners() {
   listenForClickNewUserForm()
   postSignIn()
   postNewUser()
-  listenForClickSortJobs()
+  listenForClickSortJobs(sortableJobs)
 }
 
 function listenForClickSignInForm() {
@@ -101,12 +101,30 @@ function postNewUser() {
 }
 
 function listenForClickSortJobs() {
+  
   $(document).on('click', 'button#sort_jobs', function(e) {
-    alert("i've been clicked")
-      
+    var sortedJobs = sortableJobs[0]
     
-  })
+    sortedJobs.sort(function(a,b) {
+    return (a.title).localeCompare(b.title)
+    })
+    //console.log(sortedJobs)
+    $(`#user-jobs`).html('')
+    listSortedJobs(sortedJobs)
+  })    
 }
+    
+function listSortedJobs(sortedJobs) {
+  console.log(sortedJobs)
+  sortedJobs.map(job =>{
+    $(`#user-jobs`).append(`<li><a href='/jobs/${job.id}' data-id="${job.id}" class="show_link">${job.title}</a> | ${job.location} | Date Posted: ${new Date(job.created_at).toDateString()}</li>`)
+  })
+}      
+    
+  
+
+  
+
 
 
 class User {
@@ -144,7 +162,7 @@ User.prototype.formatUserInfoShow = function() {
 
 
 User.prototype.formatUserJobsShow = function() {  
-  sortableJobs = this.jobs
+  sortableJobs.push(this.jobs)
 
   //applicant not working. Can't access app.job.title****
   let applicantHtml = this.job_applications.map(application => { 
