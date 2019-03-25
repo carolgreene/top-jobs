@@ -100,8 +100,7 @@ function postNewUser() {
   })
 }
 
-function listenForClickSortJobs() {
-  
+function listenForClickSortJobs() {  
   $(document).on('click', 'button#sort_jobs', function(e) {
     var sortedJobs = sortableJobs[0].slice(0)
     
@@ -117,14 +116,13 @@ function listenForClickSortJobs() {
 function listSortedJobs(sortedJobs) {
   console.log(sortedJobs)
   sortedJobs.map(job =>{
-    $(`#user-jobs`).append(`<li><a href='/jobs/${job.id}' data-id="${job.id}" class="show_link">${job.title}</a> | ${job.location} | Date Posted: ${new Date(job.created_at).toDateString()}</li>`)
+    $(`#user-jobs`).append(`<li><a href='/jobs/${job.id}' data-id="${job.id}" class="show_link">${job.title}</a> |
+     ${job.location} | Date Posted: ${new Date(job.created_at).toDateString()}</li>`)
+     $(`#nav`).html('').append(`<br><br><a href="/jobs/new" class='new_job_form'>Post New Job</a> |
+     <a href="/jobs" class='all_jobs'>All Jobs</a> |  
+     <a href="/signout" class='sign_out'>Log Out</a>`)
   })
-}      
-    
-  
-
-  
-
+}  
 
 
 class User {
@@ -159,8 +157,6 @@ User.prototype.formatUserInfoShow = function() {
 }
 
 
-
-
 User.prototype.formatUserJobsShow = function() {  
   sortableJobs.push(this.jobs)
 
@@ -170,9 +166,7 @@ User.prototype.formatUserJobsShow = function() {
     return (`
       <li><a href='/job_applications/${application.id}' data-id="${application.id}">${application.id}</a> | Job Title | Company Name | Applied: ${new Date(application.created_at).toDateString()} </li>
     `)
-  }).join('')
-
-  
+  }).join('')  
     
   let companyHtml = this.jobs.map(job => {
     return (`
@@ -196,7 +190,7 @@ User.prototype.formatLinks = function() {
   if(this.role === 'company')
     return (`
     <br>
-    <button class="sort_jobs" data-id="${this.id}" id="sort_jobs">Sort Jobs</button> 
+    <button class="sort_jobs" data-id="${this.id}" id="sort_jobs">Sort Jobs By Title</button> 
     <br>
     <br>
     <a href="/jobs/new" class='new_job_form'>Post New Job</a> |
