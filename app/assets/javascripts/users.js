@@ -2,7 +2,7 @@ $(document).ready(function() {
   bindEventListeners()
 })
 
-const sortableJobs = []
+let sortableJobs = []
 
 
 function bindEventListeners() {
@@ -103,7 +103,7 @@ function postNewUser() {
 function listenForClickSortJobs() {
   
   $(document).on('click', 'button#sort_jobs', function(e) {
-    var sortedJobs = sortableJobs[0]
+    var sortedJobs = sortableJobs[0].slice(0)
     
     sortedJobs.sort(function(a,b) {
     return (a.title).localeCompare(b.title)
