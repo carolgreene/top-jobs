@@ -102,7 +102,7 @@ function postNewUser() {
 
 function listenForClickSortJobs() {  
   $(document).on('click', 'button#sort_jobs', function(e) {
-    var sortedJobs = sortableJobs[0].slice(0)
+    let sortedJobs = sortableJobs[0].slice(0)
     
     sortedJobs.sort(function(a,b) {
     return (a.title).localeCompare(b.title)
