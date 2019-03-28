@@ -105,7 +105,14 @@ function listenForClickSortJobs() {
     let sortedJobs = sortableJobs[0].slice(0)
     
     sortedJobs.sort(function(a,b) {
-    return (a.title).localeCompare(b.title)
+      let value = (a.title).localeCompare(b.title)
+      if(value === 0) {
+        return a.location.localeCompare(b.location)
+      
+      } else {
+        return value
+      }
+      
     })
     //console.log(sortedJobs)
     $(`#user-jobs`).html('')
