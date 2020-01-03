@@ -2,6 +2,8 @@ $(document).ready(function() {
   bindClickHandlers()
 })
 
+//****all listeners ****
+
 function bindClickHandlers() {  
   listenForClickAllJobs()
   listenForClickOnJob()
@@ -12,7 +14,7 @@ function bindClickHandlers() {
   listenForClickSeeApplicants()
 } 
     
-    //***click event for jobs index link***
+    //***click event for jobs index link***   
 
 function listenForClickAllJobs() {
   $(document).on('click', '.all_jobs', function(e) {
