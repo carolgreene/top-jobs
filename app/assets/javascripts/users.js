@@ -22,7 +22,7 @@ function listenForClickSignInForm() {
 
 function getSignInForm() {
   $.ajax({
-    url: 'http://192.168.1.6:3000/signin',
+    url: 'http://10.0.0.99:3000/signin',
     method: 'GET',
     dataType: 'html',
   }).success(function (response) {
@@ -41,7 +41,7 @@ function listenForClickNewUserForm() {
 
 function getNewUserForm() {
   $.ajax({
-    url: 'http://192.168.1.6:3000/users/new',
+    url: 'http://10.0.0.99:3000/users/new',
     method: 'GET',
     dataType: 'html',
   }).success(function (response) {

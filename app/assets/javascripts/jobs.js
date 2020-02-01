@@ -75,7 +75,7 @@ function listenForClickNewJobForm() {
 
 function getNewJobForm() {
   $.ajax({
-    url: 'http://192.168.1.6:3000/jobs/new',
+    url: 'http://10.0.0.99:3000/jobs/new',
     method: 'GET',
     dataType: 'html',
   }).success(function (response) {
@@ -122,7 +122,7 @@ function listenForClickEditJobForm() {
 
 function getEditJobForm(id) {
   $.ajax({
-    url: `http://192.168.1.6:3000/jobs/${id}/edit`,
+    url: `http://10.0.0.99:3000/jobs/${id}/edit`,
     method: 'GET',
     dataType: 'html',
   }).success(function (response) {
